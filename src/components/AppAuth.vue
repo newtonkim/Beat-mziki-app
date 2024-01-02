@@ -55,7 +55,7 @@
           </ul>
 
           <!-- Login Form -->
-          <form v-if="tab === 'login'">
+          <vee-form v-if="tab === 'login'">
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
@@ -80,14 +80,14 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
           <!-- Registration Form -->
-          <form v-else>
+          <vee-form v-else>
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
-              <input
-                type="text"
+              <vee-field
+                type="text" name ="name"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Name"
               />
@@ -149,7 +149,7 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
         </div>
       </div>
     </div>
