@@ -54,7 +54,7 @@
           </ul>
 
           <!-- Login Form -->
-          <vee-form v-if="tab === 'login'">
+          <vee-form v-show="tab === 'login'">
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
@@ -81,7 +81,13 @@
             </button>
           </vee-form>
           <!-- Registration Form -->
-          <vee-form v-else :validation-schema="schema" @submit="register">
+          <div class="text-white text-center font-bold p-4 rounded mb-4"
+               v-if="reg_show_alert"
+               :class="reg_alert_variant"
+          >
+            {{ reg_alert_msg }}
+          </div>
+          <vee-form v-show="tab === 'register'" :validation-schema="schema" @submit="register">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -172,6 +178,7 @@
             <button
               type="submit"
               class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+              :disabled="reg_in_submission"
             >
               Submit
             </button>
@@ -199,7 +206,13 @@ export default {
         tos: 'tos',
         age: 'required|min_value:18|max_value:100',
         country: 'required|country_excluded:Nairobi'
-      }
+      },
+
+      reg_in_submission: false,
+      reg_show_alert: false,
+      reg_alert_variant: 'bg-blue-500',// blue shows registration is in progress    
+      reg_alert_msg: 'Please wait your account is being created',
+
     }
   },
 
@@ -210,7 +223,15 @@ export default {
 
   methods: {
     register(value) {
-      console.log(value)
+      this.reg_in_submission = true;
+      this.reg_show_alert = true;
+      this.reg_alert_variant = 'bg-blue-500';// blue shows registration is in progress    
+      this.reg_alert_msg = 'Please wait your account is being created';
+
+        this.reg_alert_variant = 'bg-green-500';// blue shows registration is in progress    
+      this.reg_alert_msg = 'Success ! Your account has been created.';
+
+      console.log(value);
     }
   }
 }
