@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import firebase from  '@/includes/firebase';
+import {auth} from  '@/includes/firebase';
 
 export default {
   name: 'RegisterForm',
@@ -141,7 +141,7 @@ export default {
     
       let userCred = null;
     try {
-        userCred = await firebase.auth().createUserWithEmailAndPassword(
+        userCred = await auth.createUserWithEmailAndPassword(
         values.email, values.password
       );
     } catch (error) {
