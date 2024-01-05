@@ -1,6 +1,5 @@
 <template>
-  
-  <AppHeaderVue/>
+  <AppHeaderVue />
   <!-- Introduction -->
   <section class="mb-8 py-20 text-white text-center relative">
     <div
@@ -265,19 +264,30 @@
     </div>
   </div>
 
-  <AppAuth/>
-  
+  <AppAuth />
 </template>
 
 <script>
-import AppHeaderVue from '@/components/AppHeader.vue';
+import AppHeaderVue from '@/components/AppHeader.vue'
 import AppAuth from '@/components/AppAuth.vue'
+import useUserStore from '@/stores/user'
+import { mapWritableState } from 'pinia'
+import { auth } from './includes/firebase'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     AppHeaderVue,
     AppAuth
+  },
+  computed: {
+    ...mapWritableState(useUserStore, ['userLoggedIn'])
+  },
+
+  created() {
+    if (auth.currentUser) {
+      this.userLoggedIn = true
+    }
   }
 }
 </script>
