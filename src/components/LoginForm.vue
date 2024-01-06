@@ -74,19 +74,19 @@ export default {
 
       try {
         await this.authenticate(values)
+        
       } catch (error) {
         this.login_in_submission = false
-        this.login_alert_variant = 'bg-red-500' 
+        this.login_alert_variant = 'bg-red-500'
         this.login_alert_msg = 'Invalid login details.'
-        return;
+        return
       }
 
       this.login_alert_variant = 'bg-green-500' // blue shows login is in progress
       this.login_alert_msg = 'You have succefully logged in .'
+      
 
-      console.log('login information', values)
-
-      window.location.reload();
+     
     }
   }
 }
