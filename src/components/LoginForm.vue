@@ -7,10 +7,7 @@
   >
     {{ login_alert_msg }}
   </div>
-  <vee-form
-    :validation-schema="loginSchema" 
-    @submit="login"
-  >
+  <vee-form :validation-schema="loginSchema" @submit="login">
     <!-- Email -->
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
@@ -46,6 +43,9 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import useUserStore from '@/stores/user'
+
 export default {
   name: 'LoginForm',
   components: {},
@@ -63,17 +63,28 @@ export default {
       login_alert_msg: 'Please wait as we login'
     }
   },
-  methods:{
-    login(values) {
+  methods: {
+    ...mapActions(useUserStore, ['authenticate']),
+
+    async login(values) {
       this.login_in_submission = true
       this.login_show_alert = true
       this.login_alert_variant = 'bg-blue-500' // blue shows login is in progress
-      this.login_alert_msg = 'You have succefully logged in .'
+      this.login_alert_msg = 'Please wait! We are login you in .'
+
+      try {
+        await this.authenticate(values)
+      } catch (error) {
+        this.login_in_submission = false
+        this.login_alert_variant = 'bg-red-500' 
+        this.login_alert_msg = 'Invalid login details.'
+        return;
+      }
 
       this.login_alert_variant = 'bg-green-500' // blue shows login is in progress
       this.login_alert_msg = 'You have succefully logged in .'
 
-      console.log('login information',values)
+      console.log('login information', values)
     }
   }
 }
