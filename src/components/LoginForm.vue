@@ -81,8 +81,6 @@ export default {
         return;
       }
 
-      // this.userLoggedIn = true
-
       this.login_alert_variant = 'bg-green-500' // blue shows login is in progress
       this.login_alert_msg = 'You have succefully logged in .'
 
