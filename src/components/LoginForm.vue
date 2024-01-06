@@ -85,6 +85,8 @@ export default {
       this.login_alert_msg = 'You have succefully logged in .'
 
       console.log('login information', values)
+
+      window.location.reload();
     }
   }
 }
